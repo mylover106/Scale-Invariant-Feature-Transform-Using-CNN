@@ -31,8 +31,8 @@ def oriented_warp(img1, img2):
     src_pts = [x for x, y in x_y_pairs]
     dst_pts = [y for x, y in x_y_pairs]
 
-    src_pts = np.array([(int(x[0]), int(x[1])) for x in src_pts])
-    dst_pts = np.array([(int(x[0]), int(x[1])) for x in dst_pts])
+    src_pts = np.array([(x[0], x[1]) for x in src_pts])
+    dst_pts = np.array([(x[0], x[1]) for x in dst_pts])
 
     h_mat, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC)
 
