@@ -187,4 +187,33 @@ def rotate_bound(image, angle):
     M[1,2] += (nH/2) - cy
     
     return cv2.warpAffine(image,M,(nW,nH))
+
+
+def show_match(src_pts, dst_pts, image1, image2):
+    # concate image1 and image2 to a big image
     
+    h1, w1, _ = image1.shape
+    h2, w2, _ = image2.shape
+    if h1 < h2:
+        zeros = np.zeros((h2 - h1, w1, 3)).astype(np.uint8)
+        image1 = np.concatenate((image1, zeros), axis=0)
+    if h1 > h2:
+        zeros = np.zeros((h1 - h2, w2, 3)).astype(np.uint8)
+        image2 = np.concatenate((image2, zeros), axis=0)
+    
+    full_image = np.concatenate((image1, image2), axis=1)
+
+    for p1, p2 in zip(src_pts, dst_pts):
+        x1, y1 = p1
+        x2, y2 = p2
+        r, g, b = np.random.randint(0, 256), np.random.randint(0, 256), np.random.randint(0, 256)
+        p1x, p1y = int(x1), int(y1)
+        p2x, p2y = int(x2), int(y2)
+        thick = 1
+        
+        cv2.line(full_image, (p1x, p1y), (p2x + w1, p2y), color=(r, g, b), thickness=thick)
+    cv2.imshow('pair_image', full_image)
+    cv2.imwrite('pair_image_match.png', full_image)
+    cv2.waitKey(0)
+    return 
+
