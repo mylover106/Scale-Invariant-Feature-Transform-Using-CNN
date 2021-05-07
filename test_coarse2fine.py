@@ -1,12 +1,18 @@
 from coarse_2_fine import Coarse2Fine
 import cv2
 from lib.utils import rotate_bound
+import glob
 
 
 if __name__ == "__main__":
-    img1 = cv2.imread('df-ms-data/1/img.jpg')
-    img2 = cv2.imread('df-ms-data/1/img.jpg')
-    img1 = rotate_bound(img1, 10)
-    c2f = Coarse2Fine(img1, img2)
-    c2f.coarse_wrap()
-    c2f.coarse2fine()
+    files = glob.glob('test_data/*')
+    for path in files:
+        img1_name = path + '/pair/' + 'img1.png'
+        img2_name = path + '/pair/' + 'img2.png'
+        img1 = cv2.imread(img1_name)
+        img2 = cv2.imread(img2_name)
+        img1, M = rotate_bound(img1, 30)
+        c2f = Coarse2Fine(img1, img2, M)
+        c2f.coarse_wrap()
+        c2f.coarse2fine(iter=2, save_path=path+'/coarse2fine/')
+        

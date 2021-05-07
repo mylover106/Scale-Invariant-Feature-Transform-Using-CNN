@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 import torch
+import os
 
 from lib.exceptions import EmptyTensorError
 
@@ -186,10 +187,12 @@ def rotate_bound(image, angle):
     M[0,2] += (nW/2) - cx
     M[1,2] += (nH/2) - cy
     
-    return cv2.warpAffine(image,M,(nW,nH))
+    return cv2.warpAffine(image,M,(nW,nH)), M
 
 
-def show_match(src_pts, dst_pts, image1, image2):
+def show_match(src_pts, dst_pts, image1, image2, save_path='./', save_name='0.png'):
+    if not os.path.exists(save_path):
+        os.mkdir(save_path)
     # concate image1 and image2 to a big image
     
     h1, w1, _ = image1.shape
@@ -212,8 +215,10 @@ def show_match(src_pts, dst_pts, image1, image2):
         thick = 1
         
         cv2.line(full_image, (p1x, p1y), (p2x + w1, p2y), color=(r, g, b), thickness=thick)
-    cv2.imshow('pair_image', full_image)
-    cv2.imwrite('pair_image_match.png', full_image)
-    cv2.waitKey(0)
+        cv2.circle(full_image, (p1x, p1y), radius=1, color=(r, g, b), thickness=1)
+        cv2.circle(full_image, (p2x + w1, p2y), radius=1, color=(r, g, b), thickness=1)
+    # cv2.imshow(save_path + 'pair_image', full_image)
+    cv2.imwrite(save_path + save_name, full_image)
+    # cv2.waitKey(0)
     return 
 
