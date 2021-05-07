@@ -215,8 +215,8 @@ def show_match(src_pts, dst_pts, image1, image2, save_path='./', save_name='0.pn
         thick = 1
         
         cv2.line(full_image, (p1x, p1y), (p2x + w1, p2y), color=(r, g, b), thickness=thick)
-        cv2.circle(full_image, (p1x, p1y), radius=1, color=(r, g, b), thickness=1)
-        cv2.circle(full_image, (p2x + w1, p2y), radius=1, color=(r, g, b), thickness=1)
+        cv2.circle(full_image, (p1x, p1y), radius=5, color=(r, g, b), thickness=2)
+        cv2.circle(full_image, (p2x + w1, p2y), radius=5, color=(r, g, b), thickness=2)
     # cv2.imshow(save_path + 'pair_image', full_image)
     cv2.imwrite(save_path + save_name, full_image)
     # cv2.waitKey(0)

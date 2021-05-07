@@ -73,8 +73,8 @@ class Coarse2Fine(object):
             pairs = [(src_pts[i], dst_pts[i]) for i in range(len(src_pts))]
             pairs = [(x, y) for x, y in pairs if sum(img1[int(x[1])][int(x[0])]) != 0]
             acc = self.accuracy(src_pts, dst_pts)
-            show_match(src_pts, dst_pts, img1, img2, save_path, str(i) + "_" + str(acc) + '_.png')
-            
+            show_match(src_pts, dst_pts, img1, img2, save_path, str(i) + "_" + str(acc) + '_' + str(len(src_pts)) + '_.png')
+
             h_mat = self.compute_homography(pairs)
             if i != iter - 1:
                 self.h_mat = np.dot(h_mat, self.h_mat)

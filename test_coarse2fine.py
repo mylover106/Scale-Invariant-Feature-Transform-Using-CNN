@@ -11,8 +11,7 @@ if __name__ == "__main__":
         img2_name = path + '/pair/' + 'img2.png'
         img1 = cv2.imread(img1_name)
         img2 = cv2.imread(img2_name)
-        img1, M = rotate_bound(img1, 30)
+        img1, M = rotate_bound(img1, 50)
         c2f = Coarse2Fine(img1, img2, M)
-        c2f.coarse_wrap()
-        c2f.coarse2fine(iter=2, save_path=path+'/coarse2fine/')
-        
+        # c2f.coarse_wrap()
+        c2f.coarse2fine(iter=1, save_path=path+'/coarse50/')
