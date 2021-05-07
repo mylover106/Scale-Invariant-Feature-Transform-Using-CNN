@@ -1,4 +1,4 @@
-from coarse_2_fine import Coarse2Fine
+from coarse2fine import Coarse2Fine
 import cv2
 from lib.utils import rotate_bound
 import glob
